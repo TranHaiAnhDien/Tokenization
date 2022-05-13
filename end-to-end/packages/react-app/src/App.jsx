@@ -8,7 +8,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import { BrowserRouter, Link, Route, Switch } from "react-router-dom";
 import Web3Modal from "web3modal";
 import "./App.css";
-import { Account, Contract, Faucet, GasGauge, Header, Minter, NFTViewer, Ramp, ThemeSwitch } from "./components";
+import { Account, Contract, Faucet, GasGauge, Header, Minter, NFTViewer, Ramp, ThemeSwitch, UploadImage } from "./components";
 import { INFURA_ID, NETWORK, NETWORKS } from "./constants";
 import { Transactor } from "./helpers";
 import {
@@ -249,6 +249,36 @@ function App(props) {
               Mint an NFT
             </Link>
           </Menu.Item>
+          <Menu.Item key="/images">
+            <Link
+              onClick={() => {
+                setRoute("/images");
+              }}
+              to="/images"
+            >
+              Upload Image to IPFS
+            </Link>
+          </Menu.Item>
+          <Menu.Item key="/metadata">
+            <Link
+              onClick={() => {
+                setRoute("/metadata");
+              }}
+              to="/metadata"
+            >
+              Upload Metadata to Ipfs
+            </Link>
+          </Menu.Item>
+          <Menu.Item key="/images">
+            <Link
+              onClick={() => {
+                setRoute("/images");
+              }}
+              to="/images"
+            >
+              Add Images Metadata
+            </Link>
+          </Menu.Item>
           <Menu.Item key="/view">
             <Link
               onClick={() => { setRoute("/view"); }}
@@ -276,7 +306,15 @@ function App(props) {
             />
           </Route>
 
-          <Route path="/view">
+          <Route exact path="/images">
+          <UploadImage 
+              provider={localProvider}
+              address={address}
+              blockExplorer={blockExplorer}
+              />
+          </Route>
+
+          <Route exact path="/view">
               <NFTViewer
                 provider={localProvider}
                 address={address}
